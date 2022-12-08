@@ -1,17 +1,16 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: openjdk17
   build:
     commands:
-      - echo Entered the build phase...
-      - mvn clean package
+      - mvn test
+      - mvn install
   post_build:
     commands:
       - echo Build completed successfully
 artifacts:
   files:
-    - build/libs/*.jar
-    - scripts/*.sh
-    - appspec.yml
-  #com/mycompany/app/HelloWorld.java, specifying yes will place this file in /HelloWorld.java
-  discard-paths: yes
+    - target/pokemon_team_maker-0.0.1-SNAPSHOT
