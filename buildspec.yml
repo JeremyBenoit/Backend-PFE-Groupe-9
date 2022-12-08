@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Entered the build phase...
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build completed successfully
+artifacts:
+  files:
+    - build/libs/*.jar
+    - scripts/*.sh
+    - appspec.yml
+  #com/mycompany/app/HelloWorld.java, specifying yes will place this file in /HelloWorld.java
+  discard-paths: yes
