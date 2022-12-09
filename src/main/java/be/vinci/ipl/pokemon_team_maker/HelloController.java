@@ -8,15 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-  @GetMapping("/hello")
+  @GetMapping("/")
   public String sendHelloWorld(){
-    String message = "Hello AWS Elastic Beanstalk!";
-    try {
-      InetAddress ip = InetAddress.getLocalHost();
-      message += " From host: " + ip;
-    } catch (UnknownHostException e) {
-      e.printStackTrace();
-    }
-    return message;
+    return "Hello World !";
   }
 }
