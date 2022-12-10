@@ -20,6 +20,10 @@ public class TeamController {
 
   private TeamService service;
 
+  public TeamController(TeamService service) {
+    this.service = service;
+  }
+
   @PostMapping("/create")
   void createTeam(@RequestBody NewTeam team, @RequestHeader String token) {
     if (team.getName() == null || team.getName().isBlank()

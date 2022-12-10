@@ -12,6 +12,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class TeamService {
 
   private TeamsRepository teamsRepository;
+
+  public TeamService(TeamsRepository teamsRepository) {
+    this.teamsRepository = teamsRepository;
+  }
+
   public Iterable<Team> getAllTeams() {
     return teamsRepository.findAll();
   }
