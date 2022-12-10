@@ -9,15 +9,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class AuthenticationController {
-  private final AuthenticationService authenticationService;
+  private final AuthenticationService service;
 
-  public AuthenticationController(AuthenticationService authenticationService) {
-    this.authenticationService = authenticationService;
+  public AuthenticationController(AuthenticationService service) {
+    this.service = service;
   }
 
   @PostMapping("/connect")
   String connect(@RequestBody InsecureUser insecureUser) {
-    String token =  authenticationService.connect(insecureUser);
+    String token =  service.connect(insecureUser);
     if (token == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     return token;
   }

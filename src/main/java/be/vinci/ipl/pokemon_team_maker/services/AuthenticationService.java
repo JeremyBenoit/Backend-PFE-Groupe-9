@@ -6,6 +6,7 @@ import be.vinci.ipl.pokemon_team_maker.models.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,20 @@ public class AuthenticationService {
     this.jwtVerifier = JWT.require(this.jwtAlgorithm).withIssuer("auth0").build();
   }
 
-  public String connect(InsecureUser user) {
-    User credential = usersService.readOneById(user.getPseudo());
-    if (credential == null) return null;
-    if (!BCrypt.checkpw(user.getPassword(), credential.getHashedPassword())) return null;
-    return JWT.create().withIssuer("auth0").withClaim("pseudo", credential.getPseudo()).sign(jwtAlgorithm);
+  public String connect(InsecureUser insecureUser) {
+    User user = usersService.readOneById(insecureUser.getPseudo());
+    if (user == null) return null;
+    if (!BCrypt.checkpw(insecureUser.getPassword(), user.getHashedPassword())) return null;
+    return JWT.create().withIssuer("auth0").withClaim("pseudo", user.getPseudo()).sign(jwtAlgorithm);
+  }
+
+  public String verify(String token) {
+    try {
+      String pseudo = jwtVerifier.verify(token).getClaim("pseudo").asString();
+      if (!usersService.existsById(pseudo)) return null;
+      return pseudo;
+    } catch (JWTVerificationException e) {
+      return null;
+    }
   }
 }

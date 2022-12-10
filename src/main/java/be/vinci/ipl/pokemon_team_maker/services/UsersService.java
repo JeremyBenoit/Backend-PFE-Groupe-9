@@ -25,4 +25,8 @@ public class UsersService {
     String hashedPassword = BCrypt.hashpw(insecureUser.getPassword(), BCrypt.gensalt());
     return repository.save(insecureUser.toUser(hashedPassword));
   }
+
+  public boolean existsById(String pseudo) {
+    return repository.existsById(pseudo);
+  }
 }
