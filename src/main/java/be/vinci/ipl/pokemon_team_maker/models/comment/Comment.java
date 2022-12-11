@@ -22,8 +22,7 @@ public class Comment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private String user;
-  @Column(name = "team_id")
+  private String authorId;
   private long teamId;
 
   private String content;
