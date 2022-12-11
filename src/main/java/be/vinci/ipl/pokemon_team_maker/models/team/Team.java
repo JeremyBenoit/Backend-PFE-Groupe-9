@@ -34,8 +34,8 @@ public class Team {
   private String name;
 
   @JsonProperty("creatorId")
-  @Column(name = "creatorId")
-  private long creatorId;
+  @Column(name = "creator_id")
+  private String creatorId;
 
   @JsonProperty("pokemons")
   @Column(name = "pokemons")

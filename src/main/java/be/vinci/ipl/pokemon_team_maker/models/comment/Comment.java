@@ -18,12 +18,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity(name = "comments")
 public class Comment {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private long id;
   private String user;
   @Column(name = "team_id")
-  private int teamId;
+  private long teamId;
 
   private String content;
 }

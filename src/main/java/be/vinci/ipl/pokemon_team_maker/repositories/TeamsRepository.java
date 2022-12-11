@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TeamsRepository extends CrudRepository<Team,Long> {
+public interface TeamsRepository extends CrudRepository<Team, Long> {
 
   Optional<Team> findByName(String name);
 }

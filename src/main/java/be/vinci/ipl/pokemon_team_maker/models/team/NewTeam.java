@@ -11,10 +11,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class NewTeam {
+
   private String name;
-  private long creatorId;
+  private String creatorId;
   private ArrayList<Long> pokemons;
   private ArrayList<String> weakness;
 
-  public Team toTeams() { return new Team(0L,name,creatorId,pokemons,weakness);}
+  public Team toTeams() {
+    return new Team(0L, name, creatorId, pokemons, weakness, new ArrayList<>());
+  }
 }

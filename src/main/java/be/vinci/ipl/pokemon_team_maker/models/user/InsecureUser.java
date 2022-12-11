@@ -12,8 +12,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InsecureUser {
+
   private String pseudo;
   private String password;
+
   public User toUser(String hashedPassword) {
     return new User(pseudo, hashedPassword);
   }

@@ -10,5 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class AuthenticationProperties {
+
   private String secret;
 }

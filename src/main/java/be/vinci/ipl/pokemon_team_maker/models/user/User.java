@@ -17,9 +17,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity(name = "users")
 public class User {
-    @Id
-    private String pseudo;
-    @JsonIgnore
-    @Column(name = "hashed_password")
-    private String hashedPassword;
+
+  @Id
+  private String pseudo;
+  @JsonIgnore
+  @Column(name = "hashed_password")
+  private String hashedPassword;
 }

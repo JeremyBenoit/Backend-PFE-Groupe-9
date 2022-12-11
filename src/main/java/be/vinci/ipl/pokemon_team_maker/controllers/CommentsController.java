@@ -1,9 +1,10 @@
 package be.vinci.ipl.pokemon_team_maker.controllers;
 
 import be.vinci.ipl.pokemon_team_maker.models.comment.Comment;
-import be.vinci.ipl.pokemon_team_maker.models.comment.NoIdComment;
+import be.vinci.ipl.pokemon_team_maker.models.comment.NewComment;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
 import be.vinci.ipl.pokemon_team_maker.services.CommentsService;
+import be.vinci.ipl.pokemon_team_maker.services.TeamService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,13 @@ public class CommentsController {
 
   private final CommentsService commentsService;
   private final AuthenticationService authenticationService;
+  private final TeamService teamService;
 
   public CommentsController(CommentsService commentsService,
-      AuthenticationService authenticationService) {
+      AuthenticationService authenticationService, TeamService teamService) {
     this.commentsService = commentsService;
     this.authenticationService = authenticationService;
+    this.teamService = teamService;
   }
 
   @GetMapping("/comments/teams/{teamId}")
@@ -33,18 +36,21 @@ public class CommentsController {
   }
 
   @PostMapping("/comments/")
-  public Comment createOne(@RequestBody NoIdComment noIdComment,
+  public Comment createOne(@RequestBody NewComment newComment,
       @RequestHeader("Authorization") String token) {
-    if (noIdComment == null || noIdComment.getUser() == null || noIdComment.getContent() == null
-        || noIdComment.getContent().isBlank()) {
+    if (newComment == null || newComment.getUser() == null || newComment.getContent() == null
+        || newComment.getContent().isBlank()) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
-    //TODO verifier si la team existe
-    String userPseudo = authenticationService.verify(token);
 
-    if (!userPseudo.equals(noIdComment.getUser())) {
+    if (teamService.getOneByid(newComment.getTeamId()) == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    String userPseudo = authenticationService.verify(token);
+    if (!userPseudo.equals(newComment.getUser())) {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
-    return commentsService.createOne(noIdComment);
+    return commentsService.createOne(newComment);
   }
 }
