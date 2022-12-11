@@ -1,7 +1,8 @@
-package be.vinci.ipl.pokemon_team_maker.team;
+package be.vinci.ipl.pokemon_team_maker.controller;
 
-import be.vinci.ipl.pokemon_team_maker.team.model.NewTeam;
-import be.vinci.ipl.pokemon_team_maker.team.model.Team;
+import be.vinci.ipl.pokemon_team_maker.service.TeamService;
+import be.vinci.ipl.pokemon_team_maker.model.NewTeam;
+import be.vinci.ipl.pokemon_team_maker.model.Team;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/teams")
 public class TeamController {
 
-  private TeamService service;
+  private final TeamService service;
 
   public TeamController(TeamService service) {
     this.service = service;

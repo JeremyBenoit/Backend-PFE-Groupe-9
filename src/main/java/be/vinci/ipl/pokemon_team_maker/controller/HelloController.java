@@ -1,4 +1,4 @@
-package be.vinci.ipl.pokemon_team_maker;
+package be.vinci.ipl.pokemon_team_maker.controller;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
