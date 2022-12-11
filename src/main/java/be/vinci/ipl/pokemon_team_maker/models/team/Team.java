@@ -1,4 +1,4 @@
-package be.vinci.ipl.pokemon_team_maker.model;
+package be.vinci.ipl.pokemon_team_maker.models.team;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "users")
+@Entity(name = "teams")
 public class Team {
 
   @Id

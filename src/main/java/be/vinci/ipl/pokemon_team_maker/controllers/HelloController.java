@@ -1,7 +1,6 @@
-package be.vinci.ipl.pokemon_team_maker.controller;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+package be.vinci.ipl.pokemon_team_maker.controllers;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

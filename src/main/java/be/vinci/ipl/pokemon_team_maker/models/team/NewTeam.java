@@ -1,4 +1,4 @@
-package be.vinci.ipl.pokemon_team_maker.model;
+package be.vinci.ipl.pokemon_team_maker.models.team;
 
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;

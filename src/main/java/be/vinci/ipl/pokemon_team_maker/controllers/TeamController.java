@@ -1,8 +1,8 @@
-package be.vinci.ipl.pokemon_team_maker.controller;
+package be.vinci.ipl.pokemon_team_maker.controllers;
 
-import be.vinci.ipl.pokemon_team_maker.service.TeamService;
-import be.vinci.ipl.pokemon_team_maker.model.NewTeam;
-import be.vinci.ipl.pokemon_team_maker.model.Team;
+import be.vinci.ipl.pokemon_team_maker.services.TeamService;
+import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
+import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +25,14 @@ public class TeamController {
     this.service = service;
   }
 
-  @PostMapping("/create")
+  @PostMapping("")
   void createTeam(@RequestBody NewTeam team, @RequestHeader String token) {
     if (team.getName() == null || team.getName().isBlank()
         || team.getPokemons() == null || team.getWeakness() == null)
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     service.createTeam(team);
   }
-  @GetMapping("/all")
+  @GetMapping("")
   Iterable<Team> getAllTeams(){
     return service.getAllTeams();
   }

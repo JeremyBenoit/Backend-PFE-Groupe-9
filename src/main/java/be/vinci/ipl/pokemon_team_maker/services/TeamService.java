@@ -1,8 +1,8 @@
-package be.vinci.ipl.pokemon_team_maker.service;
+package be.vinci.ipl.pokemon_team_maker.services;
 
-import be.vinci.ipl.pokemon_team_maker.data.TeamsRepository;
-import be.vinci.ipl.pokemon_team_maker.model.NewTeam;
-import be.vinci.ipl.pokemon_team_maker.model.Team;
+import be.vinci.ipl.pokemon_team_maker.repositories.TeamsRepository;
+import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
+import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
