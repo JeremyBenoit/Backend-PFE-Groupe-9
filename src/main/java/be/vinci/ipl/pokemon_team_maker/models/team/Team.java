@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,4 +46,9 @@ public class Team {
   @Column(name = "weakness")
   @ElementCollection
   private ArrayList<String> weakness;
+
+  @JsonProperty("likes")
+  @Column(name = "likes")
+  @OneToMany
+  private ArrayList<Like> likes;
 }
