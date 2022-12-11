@@ -49,6 +49,10 @@ public class TeamController {
   }
   @GetMapping("/{id}")
   Team getTeam(@PathVariable long id, @RequestHeader String token){
-    return service.getOneTeam(id);
+    return service.getOneTeamByid(id);
+  }
+  @GetMapping("/{name}")
+  Team getTeam(@PathVariable String name, @RequestHeader String token){
+    return service.getOneTeamByName(name);
   }
 }

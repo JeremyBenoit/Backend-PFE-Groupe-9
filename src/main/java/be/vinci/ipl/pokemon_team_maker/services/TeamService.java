@@ -35,8 +35,14 @@ public class TeamService {
     teamsRepository.save(newTeam);
   }
 
-  public Team getOneTeam(long id) {
+  public Team getOneTeamByid(long id) {
     Optional<Team> team = teamsRepository.findById(id);
+    if (team.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    return team.get();
+  }
+
+  public Team getOneTeamByName(String name) {
+    Optional<Team> team = teamsRepository.findByName(name);
     if (team.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     return team.get();
   }
