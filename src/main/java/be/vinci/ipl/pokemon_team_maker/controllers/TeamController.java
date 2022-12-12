@@ -50,7 +50,7 @@ public class TeamController {
 
   @DeleteMapping("/{id}")
   void deleteOne(@PathVariable long id, @RequestHeader("Authorization") String token) {
-    Team foundedTeam = teamService.getOneByid(id);
+    Team foundedTeam = teamService.getOneById(id);
     if (foundedTeam == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
@@ -83,7 +83,7 @@ public class TeamController {
 
   @GetMapping("/{id}")
   Team getOne(@PathVariable long id) {
-    return teamService.getOneByid(id);
+    return teamService.getOneById(id);
   }
 
   @GetMapping("/{name}")

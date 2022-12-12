@@ -43,7 +43,7 @@ public class CommentsController {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
-    if (teamService.getOneByid(newComment.getTeamId()) == null) {
+    if (teamService.getOneById(newComment.getTeamId()) == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 

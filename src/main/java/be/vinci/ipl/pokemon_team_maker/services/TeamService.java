@@ -34,7 +34,7 @@ public class TeamService {
     return teamsRepository.save(newTeam);
   }
 
-  public Team getOneByid(long id) {
+  public Team getOneById(long id) {
     return teamsRepository.findById(id).orElse(null);
   }
 
