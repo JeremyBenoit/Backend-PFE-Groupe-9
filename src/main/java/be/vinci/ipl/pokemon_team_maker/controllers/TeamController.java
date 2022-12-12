@@ -3,6 +3,7 @@ package be.vinci.ipl.pokemon_team_maker.controllers;
 import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
 import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
+import be.vinci.ipl.pokemon_team_maker.services.LikesService;
 import be.vinci.ipl.pokemon_team_maker.services.TeamsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,10 +23,13 @@ public class TeamController {
 
   private final TeamsService teamsService;
   private final AuthenticationService authenticationService;
+  private final LikesService likesService;
 
-  public TeamController(TeamsService teamsService, AuthenticationService authenticationService) {
+  public TeamController(TeamsService teamsService, AuthenticationService authenticationService,
+      LikesService likesService) {
     this.teamsService = teamsService;
     this.authenticationService = authenticationService;
+    this.likesService = likesService;
   }
 
   @PostMapping("/")
@@ -89,5 +93,15 @@ public class TeamController {
   @GetMapping("/{name}")
   Team getOne(@PathVariable String name) {
     return teamsService.getOneByName(name);
+  }
+
+  @GetMapping("/likes/users/{userId}")
+  Iterable<Team> getAllLikedByUserId(@PathVariable String userId){
+    return teamsService.getAllByIds(likesService.getAllTeamIdByAuthorId(userId));
+  }
+
+  @GetMapping("/authors/{authorId}")
+  Iterable<Team> getAllByAuthorId(@PathVariable String authorId){
+    return teamsService.getAllByAuthorId(authorId);
   }
 }

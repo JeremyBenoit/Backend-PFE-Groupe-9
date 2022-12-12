@@ -19,31 +19,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class UsersController {
 
   private final UsersService usersService;
-  private final AuthenticationService authenticationService;
-  private final TeamsService teamsService;
-  private final LikesService likesService;
 
   public UsersController(UsersService usersService, AuthenticationService authenticationService,
       TeamsService teamsService, LikesService likesService) {
     this.usersService = usersService;
-    this.authenticationService = authenticationService;
-    this.teamsService = teamsService;
-    this.likesService = likesService;
-  }
-
-
-  @GetMapping("/users/{id}/with-liked-and-created-teams")
-  UserWithLikedAndCreatedTeams getOneWithLikedAndCreatedTeams(@PathVariable String id, @RequestHeader("Authorization") String token) {
-    String userPseudo = authenticationService.verify(token);
-    if(userPseudo == null){
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    }
-    if (!userPseudo.equals(id)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-    }
-    User user = usersService.getOneById(id);
-    Iterable<Team> likedTeams = teamsService.getAllByIds(likesService.getAllTeamIdByAuthorId(id));
-    Iterable<Team> createdTeams = teamsService.getAllByAuthorId(id);
-    return new UserWithLikedAndCreatedTeams(user.getPseudo(),likedTeams,createdTeams);
   }
 }

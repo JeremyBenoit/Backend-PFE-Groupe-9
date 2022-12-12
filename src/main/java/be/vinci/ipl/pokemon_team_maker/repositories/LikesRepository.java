@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LikesRepository extends CrudRepository<Like, Long> {
 
-  @Query("select t.teamId from likes t where t.authorId = ?1")
+  @Query("select t.teamId from likes t where t.userId = ?1")
   Iterable<Long> findAllTeamIdByUserId(String userId);
 }
