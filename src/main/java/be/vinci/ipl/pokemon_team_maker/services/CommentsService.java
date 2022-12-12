@@ -19,7 +19,7 @@ public class CommentsService {
     return repository.save(newComment.toComment());
   }
 
-  public List<Comment> readAllByTeamId(int teamId) {
-    return repository.readAllByTeamId(teamId);
+  public Iterable<Comment> getAllByTeamId(int teamId) {
+    return repository.findAllByTeamId(teamId);
   }
 }

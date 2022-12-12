@@ -24,5 +24,5 @@ public class Like {
 
   private Long teamId;
 
-  private String userId;
+  private String authorId;
 }

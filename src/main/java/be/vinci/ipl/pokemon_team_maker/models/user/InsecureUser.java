@@ -1,5 +1,6 @@
 package be.vinci.ipl.pokemon_team_maker.models.user;
 
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
