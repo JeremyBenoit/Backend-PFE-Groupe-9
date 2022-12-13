@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,15 +41,15 @@ public class Team {
   @JsonProperty("pokemons")
   @Column(name = "pokemons")
   @ElementCollection
-  private ArrayList<Long> pokemons;
+  private List<Long> pokemons;
 
   @JsonProperty("weakness")
   @Column(name = "weakness")
   @ElementCollection
-  private ArrayList<String> weakness;
+  private List<String> weakness;
 
   @JsonProperty("likes")
   @Column(name = "likes")
   @OneToMany
-  private ArrayList<Like> likes;
+  private List<Like> likes;
 }

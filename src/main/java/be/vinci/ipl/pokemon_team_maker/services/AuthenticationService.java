@@ -26,7 +26,7 @@ public class AuthenticationService {
   }
 
   public String connect(InsecureUser insecureUser) {
-    User user = usersService.readOneById(insecureUser.getPseudo());
+    User user = usersService.getOneById(insecureUser.getPseudo());
     if (user == null) {
       return null;
     }
@@ -50,5 +50,13 @@ public class AuthenticationService {
     } catch (JWTVerificationException e) {
       return null;
     }
+  }
+
+  public String register(InsecureUser insecureUser) {
+    if (usersService.createOne(insecureUser) == null) {
+      return null;
+    }
+    return JWT.create().withIssuer("auth0").withClaim("pseudo", insecureUser.getPseudo())
+        .sign(jwtAlgorithm);
   }
 }
