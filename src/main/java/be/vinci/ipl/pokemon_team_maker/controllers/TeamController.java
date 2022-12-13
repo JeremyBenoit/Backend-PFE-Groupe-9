@@ -85,8 +85,7 @@ public class TeamController {
     return teamsService.modifyOne(id, team);
   }
 
-  @GetMapping("/{id}")
-  Team getOne(@PathVariable long id) {
+  @GetMapping("/one/{id}")  Team getOne(@PathVariable long id) {
     return teamsService.getOneById(id);
   }
 
