@@ -3,9 +3,10 @@ package be.vinci.ipl.pokemon_team_maker.controllers;
 import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
 import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
-import be.vinci.ipl.pokemon_team_maker.services.LikesService;
-import be.vinci.ipl.pokemon_team_maker.services.TeamsService;
+import be.vinci.ipl.pokemon_team_maker.services.TeamService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,18 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 @RequestMapping("/teams")
 public class TeamController {
 
-  private final TeamsService teamsService;
+  private final TeamService teamService;
   private final AuthenticationService authenticationService;
-  private final LikesService likesService;
 
-  public TeamController(TeamsService teamsService, AuthenticationService authenticationService,
-      LikesService likesService) {
-    this.teamsService = teamsService;
+  public TeamController(TeamService teamService, AuthenticationService authenticationService) {
+    this.teamService = teamService;
     this.authenticationService = authenticationService;
-    this.likesService = likesService;
   }
 
   @PostMapping("/")
@@ -44,17 +43,17 @@ public class TeamController {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
 
-    return teamsService.createOne(team);
+    return teamService.createOne(team);
   }
 
   @GetMapping("/")
   Iterable<Team> getAll() {
-    return teamsService.getAll();
+    return teamService.getAll();
   }
 
   @DeleteMapping("/{id}")
   void deleteOne(@PathVariable long id, @RequestHeader("Authorization") String token) {
-    Team foundedTeam = teamsService.getOneById(id);
+    Team foundedTeam = teamService.getOneByid(id);
     if (foundedTeam == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
@@ -63,7 +62,7 @@ public class TeamController {
     if (!userPseudo.equals(foundedTeam.getCreatorId())) {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
-    teamsService.deleteOne(id);
+    teamService.deleteOne(id);
   }
 
   @PutMapping("/{id}")
@@ -78,30 +77,20 @@ public class TeamController {
     if (!userPseudo.equals(team.getCreatorId())) {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
-    Team modifiedTeam = teamsService.modifyOne(id, team);
+    Team modifiedTeam = teamService.modifyOne(id, team);
     if (modifiedTeam == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
-    return teamsService.modifyOne(id, team);
+    return teamService.modifyOne(id, team);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/one/{id}")
   Team getOne(@PathVariable long id) {
-    return teamsService.getOneById(id);
+    return teamService.getOneByid(id);
   }
 
   @GetMapping("/{name}")
   Team getOne(@PathVariable String name) {
-    return teamsService.getOneByName(name);
-  }
-
-  @GetMapping("/likes/users/{userId}")
-  Iterable<Team> getAllLikedByUserId(@PathVariable String userId){
-    return teamsService.getAllByIds(likesService.getAllTeamIdByAuthorId(userId));
-  }
-
-  @GetMapping("/authors/{authorId}")
-  Iterable<Team> getAllByAuthorId(@PathVariable String authorId){
-    return teamsService.getAllByAuthorId(authorId);
+    return teamService.getOneByName(name);
   }
 }
