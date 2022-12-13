@@ -34,7 +34,7 @@ public class AuthenticationService {
       return null;
     }
     return JWT.create().withIssuer("auth0").withClaim("pseudo", user.getPseudo())
-        .sign(jwtAlgorithm);
+            .sign(jwtAlgorithm);
   }
 
   public String verify(String token) {
@@ -57,6 +57,6 @@ public class AuthenticationService {
       return null;
     }
     return JWT.create().withIssuer("auth0").withClaim("pseudo", insecureUser.getPseudo())
-        .sign(jwtAlgorithm);
+            .sign(jwtAlgorithm);
   }
 }
