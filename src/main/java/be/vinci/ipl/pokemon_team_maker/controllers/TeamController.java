@@ -4,7 +4,9 @@ import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
 import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
 import be.vinci.ipl.pokemon_team_maker.services.TeamService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 @RequestMapping("/teams")
 public class TeamController {
 
@@ -81,7 +84,7 @@ public class TeamController {
     return teamService.modifyOne(id, team);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/one/{id}")
   Team getOne(@PathVariable long id) {
     return teamService.getOneByid(id);
   }
