@@ -21,7 +21,7 @@ public class UsersController {
   private final UsersService usersService;
 
   public UsersController(UsersService usersService, AuthenticationService authenticationService,
-      TeamsService teamsService, LikesService likesService) {
+                         TeamsService teamsService, LikesService likesService) {
     this.usersService = usersService;
   }
 }

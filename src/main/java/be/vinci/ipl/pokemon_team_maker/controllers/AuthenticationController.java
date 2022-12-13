@@ -31,8 +31,8 @@ public class AuthenticationController {
   @PostMapping("/register")
   public String register(@RequestBody InsecureUser insecureUser) {
     if (insecureUser == null || insecureUser.getPseudo() == null
-        || insecureUser.getPassword() == null
-        || insecureUser.getPseudo().isBlank() || insecureUser.getPassword().isBlank()) {
+            || insecureUser.getPassword() == null
+            || insecureUser.getPseudo().isBlank() || insecureUser.getPassword().isBlank()) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
     String token = service.register(insecureUser);

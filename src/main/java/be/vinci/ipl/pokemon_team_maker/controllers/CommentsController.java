@@ -23,7 +23,7 @@ public class CommentsController {
   private final TeamsService teamsService;
 
   public CommentsController(CommentsService commentsService,
-      AuthenticationService authenticationService, TeamsService teamsService) {
+                            AuthenticationService authenticationService, TeamsService teamsService) {
     this.commentsService = commentsService;
     this.authenticationService = authenticationService;
     this.teamsService = teamsService;
@@ -36,9 +36,9 @@ public class CommentsController {
 
   @PostMapping("/comments/")
   public Comment createOne(@RequestBody NewComment newComment,
-      @RequestHeader("Authorization") String token) {
+                           @RequestHeader("Authorization") String token) {
     if (newComment == null || newComment.getUser() == null || newComment.getContent() == null
-        || newComment.getContent().isBlank()) {
+            || newComment.getContent().isBlank()) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
