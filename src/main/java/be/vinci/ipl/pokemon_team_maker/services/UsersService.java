@@ -15,7 +15,7 @@ public class UsersService {
     this.repository = repository;
   }
 
-  public User readOneById(String pseudo) {
+  public User getOneById(String pseudo) {
     return repository.findById(pseudo).orElse(null);
   }
 
