@@ -9,25 +9,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsersService {
 
-  private final UsersRepository repository;
+  private final UsersRepository usersRepository;
 
-  public UsersService(UsersRepository repository) {
-    this.repository = repository;
+  public UsersService(UsersRepository usersRepository) {
+    this.usersRepository = usersRepository;
   }
 
   public User getOneById(String pseudo) {
-    return repository.findById(pseudo).orElse(null);
+    return usersRepository.findById(pseudo).orElse(null);
   }
 
   public User createOne(InsecureUser insecureUser) {
-    if (repository.existsById(insecureUser.getPseudo())) {
+    if (usersRepository.existsById(insecureUser.getPseudo())) {
       return null;
     }
     String hashedPassword = BCrypt.hashpw(insecureUser.getPassword(), BCrypt.gensalt());
-    return repository.save(insecureUser.toUser(hashedPassword));
+    return usersRepository.save(insecureUser.toUser(hashedPassword));
   }
 
   public boolean existsById(String pseudo) {
-    return repository.existsById(pseudo);
+    return usersRepository.existsById(pseudo);
   }
 }

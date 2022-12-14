@@ -38,13 +38,10 @@ public class AuthenticationService {
   }
 
   public String verify(String token) {
-    if (token == null) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-    }
     try {
       String pseudo = jwtVerifier.verify(token).getClaim("pseudo").asString();
       if (!usersService.existsById(pseudo)) {
-        return null;
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
       }
       return pseudo;
     } catch (JWTVerificationException e) {

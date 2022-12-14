@@ -42,11 +42,15 @@ public class TeamsService {
     return repository.findByName(name).orElse(null);
   }
 
-  public Iterable<Team> getAllByIds(Iterable<Long> ids){
+  public Iterable<Team> getAllByIds(Iterable<Long> ids) {
     return repository.findAllById(ids);
   }
 
   public Iterable<Team> getAllByAuthorId(String authorId) {
     return repository.findAllByCreatorId(authorId);
+  }
+
+  public Iterable<Team> getAllByLikeUserId(String userId) {
+    return repository.findAllByLikesUserId(userId);
   }
 }
