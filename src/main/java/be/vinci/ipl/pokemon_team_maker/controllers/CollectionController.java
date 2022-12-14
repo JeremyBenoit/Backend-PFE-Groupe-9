@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @CrossOrigin(origins="http://127.0.0.1:5173")
-@RequestMapping("/collection")
+@RequestMapping("/collections")
 public class CollectionController {
 
     private final CollectionService collectionService;
@@ -22,21 +22,31 @@ public class CollectionController {
     }
 
     @PostMapping("/")
-    Collection createOne(@RequestBody NewCollection newCollection) {
-        if (newCollection.getPokemonId() == 0 || newCollection.getUserId().isBlank()) {
+    Collection createOne(@RequestBody NewCollection newCollection,  @RequestHeader("Authorization") String token) {
+        if (newCollection.getPokemonId() == 0 || newCollection.getUserId() == null || newCollection.getUserId().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        String userPseudo = authenticationService.verify(token);
+        if (!userPseudo.equals(newCollection.getUserId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         return collectionService.createOne(newCollection);
     }
 
     @GetMapping("/")
-    Iterable<Collection> getAllPokemonOfUser() {
-        return collectionService.findAll();
+    Iterable<Collection> getAll() {
+        return collectionService.getAll();
     }
 
     @GetMapping("/user/{userId}")
-    Iterable<Collection> getAllByUserId(@PathVariable String userId){
+    Iterable<Collection> getAllByUserId(@PathVariable String userId, @RequestHeader("Authorization") String token){
+        String userPseudo = authenticationService.verify(token);
+        if (!userPseudo.equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         return collectionService.getAllByUserId(userId);
     }
 

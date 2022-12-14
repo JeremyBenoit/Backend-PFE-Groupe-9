@@ -23,7 +23,7 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String authorId;
-  private long teamId;
+  private Long teamId;
 
   private String content;
 }

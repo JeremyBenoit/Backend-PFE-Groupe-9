@@ -3,9 +3,9 @@ package be.vinci.ipl.pokemon_team_maker.controllers;
 import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
 import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
-import be.vinci.ipl.pokemon_team_maker.services.LikesService;
 import be.vinci.ipl.pokemon_team_maker.services.TeamsService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +19,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/teams")
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class TeamController {
 
   private final TeamsService teamsService;
   private final AuthenticationService authenticationService;
-  private final LikesService likesService;
 
-  public TeamController(TeamsService teamsService, AuthenticationService authenticationService,
-      LikesService likesService) {
+  public TeamController(TeamsService teamsService, AuthenticationService authenticationService) {
     this.teamsService = teamsService;
     this.authenticationService = authenticationService;
-    this.likesService = likesService;
   }
 
   @PostMapping("/")
@@ -96,12 +94,24 @@ public class TeamController {
   }
 
   @GetMapping("/likes/users/{userId}")
-  Iterable<Team> getAllLikedByUserId(@PathVariable String userId){
-    return teamsService.getAllByIds(likesService.getAllTeamIdByAuthorId(userId));
+  Iterable<Team> getAllByLikeUserId(@PathVariable String userId,
+      @RequestHeader("Authorization") String token) {
+    String userPseudo = authenticationService.verify(token);
+    if (!userPseudo.equals(userId)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
+    return teamsService.getAllByLikeUserId(userId);
   }
 
   @GetMapping("/authors/{authorId}")
-  Iterable<Team> getAllByAuthorId(@PathVariable String authorId){
+  Iterable<Team> getAllByAuthorId(@PathVariable String authorId,
+      @RequestHeader("Authorization") String token) {
+    String userPseudo = authenticationService.verify(token);
+    if (!userPseudo.equals(authorId)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
     return teamsService.getAllByAuthorId(authorId);
   }
+
+
 }

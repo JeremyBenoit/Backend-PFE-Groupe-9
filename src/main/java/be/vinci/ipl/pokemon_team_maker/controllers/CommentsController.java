@@ -6,16 +6,19 @@ import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
 import be.vinci.ipl.pokemon_team_maker.services.CommentsService;
 import be.vinci.ipl.pokemon_team_maker.services.TeamsService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-
+@CrossOrigin(origins = "http://127.0.0.1:5173")
+@RequestMapping("/comments")
 public class CommentsController {
 
   private final CommentsService commentsService;
@@ -29,12 +32,12 @@ public class CommentsController {
     this.teamsService = teamsService;
   }
 
-  @GetMapping("/comments/teams/{teamId}")
+  @GetMapping("/teams/{teamId}")
   public Iterable<Comment> getAllByTeamId(@PathVariable int teamId) {
     return commentsService.getAllByTeamId(teamId);
   }
 
-  @PostMapping("/comments/")
+  @PostMapping("/")
   public Comment createOne(@RequestBody NewComment newComment,
       @RequestHeader("Authorization") String token) {
     if (newComment == null || newComment.getUser() == null || newComment.getContent() == null

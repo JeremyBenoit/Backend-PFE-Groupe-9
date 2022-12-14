@@ -18,7 +18,7 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private long pokemonId;
+    private Long pokemonId;
 
     private String userId;
 }

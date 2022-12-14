@@ -1,4 +1,4 @@
-package be.vinci.ipl.pokemon_team_maker.models.team;
+package be.vinci.ipl.pokemon_team_maker.models.like;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

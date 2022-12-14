@@ -14,7 +14,7 @@ public class CollectionService {
         this.collectionRepository = collectionRepository;
     }
 
-    public Iterable<Collection> findAll() {
+    public Iterable<Collection> getAll() {
         return collectionRepository.findAll();
     }
 

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-@CrossOrigin(origins = "http://127.0.0.1:5173")
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class AuthenticationController {
 
   private final AuthenticationService service;
