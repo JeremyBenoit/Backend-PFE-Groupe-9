@@ -44,11 +44,6 @@ public class Team {
   @ElementCollection
   private List<Long> pokemons;
 
-  @JsonProperty("weakness")
-  @Column(name = "weakness")
-  @ElementCollection
-  private List<String> weakness;
-
   @JsonProperty("likes")
   @OneToMany(mappedBy = "teamId", targetEntity = Like.class, cascade=CascadeType.ALL, orphanRemoval=true)
   private List<Like> likes;
