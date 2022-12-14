@@ -33,7 +33,7 @@ public class TeamController {
   @PostMapping("/")
   Team createOne(@RequestBody NewTeam team, @RequestHeader("Authorization") String token) {
     if (team.getName() == null || team.getName().isBlank()
-        || team.getPokemons() == null || team.getWeakness() == null) {
+        || team.getPokemons() == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
@@ -68,7 +68,7 @@ public class TeamController {
   Team modifyOne(@PathVariable long id, @RequestHeader("Authorization") String token,
       @RequestBody Team team) {
     if (team.getName() == null || team.getName().isBlank() || team.getId() == id
-        || team.getPokemons() == null || team.getWeakness() == null) {
+        || team.getPokemons() == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
