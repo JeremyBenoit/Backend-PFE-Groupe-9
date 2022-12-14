@@ -11,14 +11,14 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "likes")
-public class PokemonOfUser {
+@Entity(name = "collections")
+public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long pokemonId;
+    private long pokemonId;
 
     private String userId;
 }

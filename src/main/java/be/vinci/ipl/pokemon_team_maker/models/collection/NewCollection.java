@@ -9,12 +9,12 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-public class NewPokemonOfUser {
-    private Long pokemonId;
+public class NewCollection {
+    private long pokemonId;
 
     private String userId;
 
-    public PokemonOfUser toPokemonOfUser() {
-        return new PokemonOfUser(0L, pokemonId, userId);
+    public Collection toCollection() {
+        return new Collection(0L, pokemonId, userId);
     }
 }

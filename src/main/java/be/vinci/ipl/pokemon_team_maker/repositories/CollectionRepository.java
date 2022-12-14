@@ -1,7 +1,11 @@
 package be.vinci.ipl.pokemon_team_maker.repositories;
 
-import be.vinci.ipl.pokemon_team_maker.models.collection.PokemonOfUser;
+import be.vinci.ipl.pokemon_team_maker.models.collection.Collection;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CollectionRepository extends CrudRepository<PokemonOfUser, Long> {
+
+@Repository
+public interface CollectionRepository extends CrudRepository<Collection, Long> {
+    Iterable<Collection> getAllByUserId(String userId);
 }

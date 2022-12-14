@@ -1,7 +1,7 @@
 package be.vinci.ipl.pokemon_team_maker.services;
 
-import be.vinci.ipl.pokemon_team_maker.models.collection.NewPokemonOfUser;
-import be.vinci.ipl.pokemon_team_maker.models.collection.PokemonOfUser;
+import be.vinci.ipl.pokemon_team_maker.models.collection.NewCollection;
+import be.vinci.ipl.pokemon_team_maker.models.collection.Collection;
 import be.vinci.ipl.pokemon_team_maker.repositories.CollectionRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +14,18 @@ public class CollectionService {
         this.collectionRepository = collectionRepository;
     }
 
-    public Iterable<PokemonOfUser> getAll() {
+    public Iterable<Collection> findAll() {
         return collectionRepository.findAll();
     }
 
-    public PokemonOfUser getOneById(long id) {
+    public Collection getOneById(long id) {
         return collectionRepository.findById(id).orElse(null);
     }
 
-    public PokemonOfUser createOne(NewPokemonOfUser newPokemonOfUser) {
-        return collectionRepository.save(newPokemonOfUser.toPokemonOfUser());
+    public Collection createOne(NewCollection newCollection) {
+        return collectionRepository.save(newCollection.toCollection());
     }
+
+    public Iterable<Collection> getAllByUserId(String userId) { return collectionRepository.getAllByUserId(userId); }
 
 }
