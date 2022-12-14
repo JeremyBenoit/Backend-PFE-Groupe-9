@@ -3,32 +3,37 @@ package be.vinci.ipl.pokemon_team_maker.controllers;
 import be.vinci.ipl.pokemon_team_maker.models.team.NewTeam;
 import be.vinci.ipl.pokemon_team_maker.models.team.Team;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
-import be.vinci.ipl.pokemon_team_maker.services.LikesService;
 import be.vinci.ipl.pokemon_team_maker.services.TeamsService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5173")
 @RequestMapping("/teams")
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class TeamController {
 
   private final TeamsService teamsService;
   private final AuthenticationService authenticationService;
-  private final LikesService likesService;
 
-  public TeamController(TeamsService teamsService, AuthenticationService authenticationService,
-                        LikesService likesService) {
+  public TeamController(TeamsService teamsService, AuthenticationService authenticationService) {
     this.teamsService = teamsService;
     this.authenticationService = authenticationService;
-    this.likesService = likesService;
   }
 
   @PostMapping("/")
   Team createOne(@RequestBody NewTeam team, @RequestHeader("Authorization") String token) {
     if (team.getName() == null || team.getName().isBlank()
-            || team.getPokemons() == null || team.getWeakness() == null) {
+        || team.getPokemons() == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
@@ -61,9 +66,9 @@ public class TeamController {
 
   @PutMapping("/{id}")
   Team modifyOne(@PathVariable long id, @RequestHeader("Authorization") String token,
-                 @RequestBody Team team) {
+      @RequestBody Team team) {
     if (team.getName() == null || team.getName().isBlank() || team.getId() == id
-            || team.getPokemons() == null || team.getWeakness() == null) {
+        || team.getPokemons() == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
@@ -78,7 +83,8 @@ public class TeamController {
     return teamsService.modifyOne(id, team);
   }
 
-  @GetMapping("/one/{id}")  Team getOne(@PathVariable long id) {
+  @GetMapping("/{id}")
+  Team getOne(@PathVariable long id) {
     return teamsService.getOneById(id);
   }
 
@@ -88,12 +94,24 @@ public class TeamController {
   }
 
   @GetMapping("/likes/users/{userId}")
-  Iterable<Team> getAllLikedByUserId(@PathVariable String userId){
-    return teamsService.getAllByIds(likesService.getAllTeamIdByAuthorId(userId));
+  Iterable<Team> getAllByLikeUserId(@PathVariable String userId,
+      @RequestHeader("Authorization") String token) {
+    String userPseudo = authenticationService.verify(token);
+    if (!userPseudo.equals(userId)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
+    return teamsService.getAllByLikeUserId(userId);
   }
 
   @GetMapping("/authors/{authorId}")
-  Iterable<Team> getAllByAuthorId(@PathVariable String authorId){
+  Iterable<Team> getAllByAuthorId(@PathVariable String authorId,
+      @RequestHeader("Authorization") String token) {
+    String userPseudo = authenticationService.verify(token);
+    if (!userPseudo.equals(authorId)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
     return teamsService.getAllByAuthorId(authorId);
   }
+
+
 }

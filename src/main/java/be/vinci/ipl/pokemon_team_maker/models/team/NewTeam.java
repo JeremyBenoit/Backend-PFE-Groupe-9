@@ -16,9 +16,8 @@ public class NewTeam {
   private String name;
   private String creatorId;
   private List<Long> pokemons;
-  private List<String> weakness;
 
   public Team toTeams() {
-    return new Team(0L, name, creatorId, pokemons, weakness, new ArrayList<>());
+    return new Team(0L, name, creatorId, pokemons, new ArrayList<>());
   }
 }
