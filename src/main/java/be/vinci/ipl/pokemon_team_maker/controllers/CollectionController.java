@@ -40,12 +40,13 @@ public class CollectionController {
         return collectionService.getAll();
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     Iterable<Collection> getAllByUserId(@PathVariable String userId, @RequestHeader("Authorization") String token){
         String userPseudo = authenticationService.verify(token);
         if (!userPseudo.equals(userId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
+
 
         return collectionService.getAllByUserId(userId);
     }
