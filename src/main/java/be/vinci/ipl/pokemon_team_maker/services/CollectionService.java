@@ -26,6 +26,8 @@ public class CollectionService {
         return collectionRepository.save(newCollection.toCollection());
     }
 
-    public Iterable<Collection> getAllByUserId(String userId) { return collectionRepository.getAllByUserId(userId); }
+    public Iterable<Collection> getAllByUserId(String userId) {
+        return collectionRepository.getAllByUserId(userId);
+    }
 
 }
