@@ -1,4 +1,4 @@
-package be.vinci.ipl.pokemon_team_maker.properties;
+package be.vinci.ipl.pokemon_team_maker.config;
 
 import lombok.Getter;
 import lombok.Setter;

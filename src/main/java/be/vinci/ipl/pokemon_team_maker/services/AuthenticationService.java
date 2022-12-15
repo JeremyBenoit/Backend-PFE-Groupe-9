@@ -2,7 +2,7 @@ package be.vinci.ipl.pokemon_team_maker.services;
 
 import be.vinci.ipl.pokemon_team_maker.models.user.InsecureUser;
 import be.vinci.ipl.pokemon_team_maker.models.user.User;
-import be.vinci.ipl.pokemon_team_maker.properties.AuthenticationProperties;
+import be.vinci.ipl.pokemon_team_maker.config.AuthenticationProperties;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
