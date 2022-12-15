@@ -84,13 +84,8 @@ public class TeamController {
   }
 
   @GetMapping("/{id}")
-  Team getOne(@PathVariable long id) {
+  Team getOne(@PathVariable Long id) {
     return teamsService.getOneById(id);
-  }
-
-  @GetMapping("/{name}")
-  Team getOne(@PathVariable String name) {
-    return teamsService.getOneByName(name);
   }
 
   @GetMapping("/likes/users/{userId}")
