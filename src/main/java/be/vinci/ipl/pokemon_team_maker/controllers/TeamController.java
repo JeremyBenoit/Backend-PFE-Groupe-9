@@ -30,7 +30,7 @@ public class TeamController {
     this.authenticationService = authenticationService;
   }
 
-  @PostMapping("/")
+  @PostMapping()
   Team createOne(@RequestBody NewTeam team, @RequestHeader("Authorization") String token) {
     if (team.getName() == null || team.getName().isBlank()
         || team.getPokemons() == null) {
@@ -45,7 +45,7 @@ public class TeamController {
     return teamsService.createOne(team);
   }
 
-  @GetMapping("/")
+  @GetMapping()
   Iterable<Team> getAll() {
     return teamsService.getAll();
   }
