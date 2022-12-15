@@ -31,7 +31,7 @@ public class LikesController {
     this.likesService = likesService;
   }
 
-  @PostMapping("/")
+  @PostMapping()
   Like createOne(@RequestBody NewLike newLike, @RequestHeader("Authorization") String token){
     Team team = teamsService.getOneById(newLike.getTeamId());
     if(team == null){

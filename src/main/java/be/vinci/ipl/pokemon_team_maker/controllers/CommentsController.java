@@ -37,7 +37,7 @@ public class CommentsController {
     return commentsService.getAllByTeamId(teamId);
   }
 
-  @PostMapping("/")
+  @PostMapping()
   public Comment createOne(@RequestBody NewComment newComment,
       @RequestHeader("Authorization") String token) {
     if (newComment == null || newComment.getUser() == null || newComment.getContent() == null

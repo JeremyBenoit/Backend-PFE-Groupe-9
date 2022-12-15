@@ -21,7 +21,7 @@ public class CollectionController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/")
+    @PostMapping()
     Collection createOne(@RequestBody NewCollection newCollection,  @RequestHeader("Authorization") String token) {
         if (newCollection.getPokemonId() == 0 || newCollection.getUserId() == null || newCollection.getUserId().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -35,11 +35,6 @@ public class CollectionController {
         return collectionService.createOne(newCollection);
     }
 
-    @GetMapping("/")
-    Iterable<Collection> getAll() {
-        return collectionService.getAll();
-    }
-
     @GetMapping("/users/{userId}")
     Iterable<Collection> getAllByUserId(@PathVariable String userId, @RequestHeader("Authorization") String token){
         String userPseudo = authenticationService.verify(token);
@@ -49,11 +44,6 @@ public class CollectionController {
 
 
         return collectionService.getAllByUserId(userId);
-    }
-
-    @GetMapping("/{id}")
-    Collection getOne(@PathVariable long id) {
-        return collectionService.getOneById(id);
     }
 
 }
