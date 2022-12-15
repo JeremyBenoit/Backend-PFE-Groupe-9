@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/likes")
+@CrossOrigin(origins = {"http://ptm-front-dev.s3-website.eu-west-3.amazonaws.com" , "http://ptm-front-prod.s3-website.eu-west-3.amazonaws.com"})
 public class LikesController {
 
   private final TeamsService teamsService;

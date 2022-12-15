@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/collections")
+@CrossOrigin(origins = {"http://ptm-front-dev.s3-website.eu-west-3.amazonaws.com" , "http://ptm-front-prod.s3-website.eu-west-3.amazonaws.com"})
 public class CollectionController {
 
     private final CollectionService collectionService;
