@@ -87,7 +87,6 @@ public class TeamController {
   Team getOne(@PathVariable Long id) {
     return teamsService.getOneById(id);
   }
-
   @GetMapping("/likes/users/{userId}")
   Iterable<Team> getAllByLikeUserId(@PathVariable String userId,
       @RequestHeader("Authorization") String token) {

@@ -43,7 +43,7 @@ public class LikesController {
     }
 
     String userPseudo = authenticationService.verify(token);
-    if (!userPseudo.equals(team.getCreatorId())) {
+    if (userPseudo.equals(team.getCreatorId())) {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
 
