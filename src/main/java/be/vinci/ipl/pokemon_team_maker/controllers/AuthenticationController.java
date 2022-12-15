@@ -3,14 +3,12 @@ package be.vinci.ipl.pokemon_team_maker.controllers;
 import be.vinci.ipl.pokemon_team_maker.models.user.InsecureUser;
 import be.vinci.ipl.pokemon_team_maker.services.AuthenticationService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class AuthenticationController {
 
   private final AuthenticationService service;

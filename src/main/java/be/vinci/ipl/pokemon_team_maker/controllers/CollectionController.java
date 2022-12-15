@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@CrossOrigin(origins="http://127.0.0.1:5173")
 @RequestMapping("/collections")
 public class CollectionController {
 
